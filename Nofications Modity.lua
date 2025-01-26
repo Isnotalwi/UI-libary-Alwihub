@@ -1,15 +1,18 @@
+-- Notifications Module
 local notifications = {}
 
+-- Function to create and display a notification
 function notifications.NewNotification(notification_info)
+    -- Default notification settings
     notification_info.Title = notification_info.Title or "Notification"
     notification_info.Body = notification_info.Body or "This is a notification!"
-    notification_info.Time = notification_info.Time or 2 -- Seconds
+    notification_info.Time = notification_info.Time or 2 -- Time in seconds
 
-    -- Notifications folder
+    -- Parent container for notifications
     local Notifications_Folder = Instance.new("Folder")
     Notifications_Folder.Name = "Notifications"
 
-    -- Executor-specific protection
+    -- Executor-specific protection for secure parenting
     if syn and syn.protect_gui then
         syn.protect_gui(Notifications_Folder)
         Notifications_Folder.Parent = game:GetService("CoreGui")
@@ -19,21 +22,25 @@ function notifications.NewNotification(notification_info)
         Notifications_Folder.Parent = game:GetService("CoreGui")
     end
 
-    -- Notification UI setup
-    local Notification = cloneref(Instance.new("Frame")) 
-    local Notif_Title = cloneref(Instance.new("TextLabel")) 
-    local Border = cloneref(Instance.new("Frame")) 
-    local Body = cloneref(Instance.new("TextLabel")) 
-    local Progress = cloneref(Instance.new("Frame")) 
+    -- Notification UI components
+    local Notification = Instance.new("Frame")
+    local Notif_Title = Instance.new("TextLabel")
+    local Border = Instance.new("Frame")
+    local Body = Instance.new("TextLabel")
+    local Progress = Instance.new("Frame")
 
+    -- Configure Notification container
     Notification.Name = "Notification"
     Notification.Parent = Notifications_Folder
-    Notification.BackgroundColor3 = Color3.fromRGB(30, 30, 30) -- Example theme
+    Notification.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     Notification.BorderColor3 = Color3.fromRGB(25, 25, 25)
     Notification.ClipsDescendants = true
     Notification.Size = UDim2.new(1, 0, 0, 0)
+    Notification.Position = UDim2.new(0.5, -150, 0, 50) -- Center the notification
+    Notification.AnchorPoint = Vector2.new(0.5, 0)
     Notification.ZIndex = 10001
 
+    -- Configure title
     Notif_Title.Name = "Notif_Title"
     Notif_Title.Parent = Notification
     Notif_Title.BackgroundTransparency = 1.000
@@ -46,6 +53,7 @@ function notifications.NewNotification(notification_info)
     Notif_Title.TextSize = 12.000
     Notif_Title.TextXAlignment = Enum.TextXAlignment.Left
 
+    -- Configure border
     Border.Name = "Border"
     Border.Parent = Notification
     Border.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
@@ -54,6 +62,7 @@ function notifications.NewNotification(notification_info)
     Border.Size = UDim2.new(1, 0, 0, 1)
     Border.ZIndex = 10002
 
+    -- Configure body text
     Body.Name = "Body"
     Body.Parent = Notification
     Body.BackgroundTransparency = 1.000
@@ -68,6 +77,7 @@ function notifications.NewNotification(notification_info)
     Body.TextXAlignment = Enum.TextXAlignment.Left
     Body.TextYAlignment = Enum.TextYAlignment.Top
 
+    -- Configure progress bar
     Progress.Name = "Progress"
     Progress.Parent = Notification
     Progress.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
@@ -76,13 +86,18 @@ function notifications.NewNotification(notification_info)
     Progress.Size = UDim2.new(0, 0, 0, 1)
     Progress.ZIndex = 10002
 
+    -- Display and animate the notification
     coroutine.wrap(function()
         -- Fade in
-        local FadeIn = game:GetService("TweenService"):Create(Notification, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(1, 0, 0, 70)})
+        local FadeIn = game:GetService("TweenService"):Create(
+            Notification,
+            TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
+            {Size = UDim2.new(0, 300, 0, 70)}
+        )
         FadeIn:Play()
         FadeIn.Completed:Wait()
 
-        -- Progress bar
+        -- Progress bar animation
         local ProgressTween = game:GetService("TweenService"):Create(
             Progress,
             TweenInfo.new(notification_info.Time, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
@@ -92,7 +107,11 @@ function notifications.NewNotification(notification_info)
         ProgressTween.Completed:Wait()
 
         -- Fade out
-        local FadeOut = game:GetService("TweenService"):Create(Notification, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(1, 0, 0, 0)})
+        local FadeOut = game:GetService("TweenService"):Create(
+            Notification,
+            TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
+            {Size = UDim2.new(0, 300, 0, 0)}
+        )
         FadeOut:Play()
         FadeOut.Completed:Wait()
 
