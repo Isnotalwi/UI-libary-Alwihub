@@ -20,11 +20,11 @@ function notifications.NewNotification(notification_info)
     end
 
     -- Notification UI setup
-    local Notification = Instance.new("Frame")
-    local Notif_Title = Instance.new("TextLabel")
-    local Border = Instance.new("Frame")
-    local Body = Instance.new("TextLabel")
-    local Progress = Instance.new("Frame")
+    local Notification = cloneref(Instance.new("Frame")) 
+    local Notif_Title = cloneref(Instance.new("TextLabel")) 
+    local Border = cloneref(Instance.new("Frame")) 
+    local Body = cloneref(Instance.new("TextLabel")) 
+    local Progress = cloneref(Instance.new("Frame")) 
 
     Notification.Name = "Notification"
     Notification.Parent = Notifications_Folder
