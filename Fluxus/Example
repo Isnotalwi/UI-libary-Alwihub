@@ -1,0 +1,40 @@
+-- Alwi Hub
+-- Load the Fluxus UI library
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Imalwibest/Imalwibest/refs/heads/main/Fluxus%20Ui.lib"))()
+
+-- Create main window and main tab
+local Window = lib:CreateWindow("Server Teleporter")
+local MainTab = Window:NewTab("Main")
+
+-- Main tab sections
+local MainSection = MainTab:AddSection("Actions")
+local TextSection = MainTab:AddSection("Text Input")
+local ToggleSection = MainTab:AddSection("Toggle")
+local DropdownSection = MainTab:AddSection("Dropdown")
+local SliderSection = MainTab:AddSection("Slider")
+local LabelSection = MainTab:AddSection("Label")
+
+-- Button in the Actions section
+MainSection:AddButton("Click Me", "This is a button", function()
+    print("Button Clicked!")
+end)
+
+-- Toggle in the Toggle section
+ToggleSection:AddToggle("Enable Feature", "Toggle ON/OFF", false, function(state)
+    print("Toggle is now:", state)
+end)
+
+-- TextBox in the Text Input section (Fixed)
+TextSection:AddTextBox("Enter Server ID", "Enter the server ID to teleport", "Server ID...", "", function(inputText)
+    print("Text Entered:", inputText)
+end)
+
+-- Dropdown in the Dropdown section
+DropdownSection:AddDropdown("Select Server Type", "Choose the server type", {"Public", "Private", "VIP"}, "Public", function(selected)
+    print("Selected Server Type:", selected)
+end)
+
+-- Slider in the Slider section
+SliderSection:AddSlider("Adjust Volume", "Set the volume level", 0, 100, 50, false, function(value)
+    print("Volume set to:", value)
+end)
