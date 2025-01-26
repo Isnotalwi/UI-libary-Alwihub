@@ -1,7 +1,5 @@
--- Notifications Module
 local notifications = {}
 
--- Function to create and display a notification
 function notifications.NewNotification(notification_info)
     -- Default notification settings
     notification_info.Title = notification_info.Title or "Notification"
@@ -80,11 +78,21 @@ function notifications.NewNotification(notification_info)
     -- Configure progress bar
     Progress.Name = "Progress"
     Progress.Parent = Notification
-    Progress.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+    Progress.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     Progress.BorderSizePixel = 0
     Progress.Position = UDim2.new(0, 0, 1, -1)
     Progress.Size = UDim2.new(0, 0, 0, 1)
     Progress.ZIndex = 10002
+
+    -- Rainbow effect for progress bar
+    coroutine.wrap(function()
+        local hue = 0
+        while Progress.Size.X.Scale < 1 do
+            hue = (hue + 0.01) % 1 -- Increment hue
+            Progress.BackgroundColor3 = Color3.fromHSV(hue, 1, 1) -- Set to rainbow color
+            task.wait(0.02) -- Update frequency
+        end
+    end)()
 
     -- Display and animate the notification
     coroutine.wrap(function()
