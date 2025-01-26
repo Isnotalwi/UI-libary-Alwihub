@@ -7,25 +7,25 @@ function notifications.NewNotification(notification_info)
     notification_info.Time = notification_info.Time or 2 -- Time in seconds
 
     -- Parent container for notifications
-    local Notifications_Folder = Instance.new("Folder")
+    local Notifications_Folder = cloneref(Instance.new("Folder")) 
     Notifications_Folder.Name = "Notifications"
 
     -- Executor-specific protection for secure parenting
     if syn and syn.protect_gui then
         syn.protect_gui(Notifications_Folder)
-        Notifications_Folder.Parent = game:GetService("CoreGui")
+        Notifications_Folder.Parent = cloneref(game:GetService("CoreGui")) 
     elseif gethui then
         Notifications_Folder.Parent = gethui()
     else
-        Notifications_Folder.Parent = game:GetService("CoreGui")
+        Notifications_Folder.Parent = cloneref(game:GetService("CoreGui")) 
     end
 
     -- Notification UI components
-    local Notification = Instance.new("Frame")
-    local Notif_Title = Instance.new("TextLabel")
-    local Border = Instance.new("Frame")
-    local Body = Instance.new("TextLabel")
-    local Progress = Instance.new("Frame")
+    local Notification = cloneref(Instance.new("Frame")) 
+    local Notif_Title = cloneref(Instance.new("TextLabel")) 
+    local Border = cloneref(Instance.new("Frame")) 
+    local Body = cloneref(Instance.new("TextLabel")) 
+    local Progress = cloneref(Instance.new("Frame")) 
 
     -- Configure Notification container
     Notification.Name = "Notification"
