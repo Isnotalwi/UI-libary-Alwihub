@@ -2,9 +2,9 @@ local notifications = {}
 
 function notifications.NewNotification(notification_info)
     -- Parent the notification system to CoreGui for executors
-    local Notifications_Folder = Instance.new("Folder")
-    local Container = Instance.new("Frame")
-    local NotificationLayout = Instance.new("UIListLayout")
+    local Notifications_Folder = cloneref(Instance.new("Folder")) 
+    local Container = cloneref(nstance.new("Frame")) 
+    local NotificationLayout = cloneref(Instance.new("UIListLayout")) 
 
     Notifications_Folder.Name = "Notifications"
 
